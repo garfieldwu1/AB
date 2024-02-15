@@ -1,43 +1,42 @@
-const axios = require('axios');
+const axios = require("axios");
 
-module.exports.config = {
-	name: "ai",
-	version: "1.0.0",
-	hasPermission: 0,
-	credits: "cliff",//api by jonell
-	description: "Gpt architecture",
-	usePrefix: false,
-	commandCategory: "GPT4",
-	cooldowns: 5,
+const config = {
+  name: "oten",
+  version: "1.0.0",
+  hasPermission: 0,
+  credits: "unknown",
+  description: "OpenAI official AI with no prefix",
+  commandCategory: "education",
+  usePrefix: true,
+  usages: "...",
+  cooldowns: 0
 };
 
-module.exports.run = async function ({ api, event, args }) {
-	try {
-		const { messageID, messageReply } = event;
-		let prompt = args.join(' ');
+const handleEvent = async function ({ api, event, client, __GLOBAL }) {
 
-		if (messageReply) {
-			const repliedMessage = messageReply.body;
-			prompt = `${repliedMessage} ${prompt}`;
-		}
+  if (event.body.indexOf("ai") === 0 || event.body.indexOf("Ai") === 0) {
+    const { threadID, messageID } = event;
+    const input = event.body;
+    const message = input.split(" ");
 
-		if (!prompt) {
-			return api.sendMessage('Please provide a prompt to generate a text response.\nExample: GPT4 What is the meaning of life?', event.threadID, messageID);
-		}
-
-		const gpt4_api = `https://ai-chat-gpt-4-lite.onrender.com/api/hercai?question=${encodeURIComponent(prompt)}`;
-
-		const response = await axios.get(gpt4_api);
-
-		if (response.data && response.data.reply) {
-			const generatedText = response.data.reply;
-			api.sendMessage({ body: generatedText, attachment: null }, event.threadID, messageID);
-		} else {
-			console.error('API response did not contain expected data:', response.data);
-			api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Response data: ${JSON.stringify(response.data)}`, event.threadID, messageID);
-		}
-	} catch (error) {
-		console.error('Error:', error);
-		api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Error details: ${error.message}`, event.threadID, event.messageID);
-	}
+    if (message.length < 2) {
+      api.sendMessage("Please provide a question first.", event.threadID, event.messageID);
+    } else {
+      try {
+        api.sendMessage('Please bear with me while I ponder your request...', event.threadID, event.messageID);
+        const ris = await axios.get(`https://garfieldapi.cyclic.app/api/gpt4?query=${message.slice(1).join(" ")}`);
+        const result = ris.data.Mark;
+        const Mark = `𝗔𝗗𝗢𝗕𝗢 🎃:\n\n${result}`;
+        api.sendMessage(Mark, event.threadID, event.messageID);
+      } catch (err) {
+        console.error(err);
+        api.sendMessage("We apologize for the inconvenience, but we were unable to send your answer at this time. Please try again later.", event.threadID, event.messageID);
+      }
+    }
+  }
 };
+
+const run = function ({ api, event, client, __GLOBAL }) {
+};
+
+module.exports = { config, handleEvent, run };

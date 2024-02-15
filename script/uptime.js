@@ -42,7 +42,7 @@ module.exports.run = async ({ api, event }) => {
 		};
 
 		const timeStart = Date.now();
-		const returnResult = `BOT has been working for ${hours} hour(s) ${minutes} minute(s) ${seconds} second(s).\n\n❖ Total users: ${global.data.allUserID.length}\n❖ Total Threads: ${global.data.allThreadID.length}\n❖ Cpu usage: ${pidusage.cpu.toFixed(1)}%\n❖ RAM usage: ${byte2mb(pidusage.memory)}\n❖ Cores: 8\n❖ Ping: ${Date.now() - timeStart}ms\n❖ Operating System Platform: ${osInfo.platform}\n❖ System CPU Architecture: ${osInfo.architecture}`;
+		const returnResult = `BOT has been working for ${hours} hour(s) ${minutes} minute(s) ${seconds} second(s).\n\n❖ Total users: ${global.data.allUserID.length}\n❖ Total Threads: ${global.data.allThreadID.length}\n❖ Cpu usage: ${pidusage.cpu.toFixed(1)}%\n❖ RAM usage: ${byte2mb(pidusage.memory)}\n❖ Cores: 8\n❖ Ping: ${Date.now() - timeStart}ms\n❖ Operating System Platform: ${osInfo.platform}\n❖ System CPU Architecture: ${osInfo.architecture}\n\n𝗔𝗗𝗠𝗜𝗡: www.facebook.com/mark.dev69`;
 
 		return api.sendMessage(returnResult, event.threadID, event.messageID);
 };
