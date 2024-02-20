@@ -24,9 +24,9 @@ const handleEvent = async function ({ api, event, client, __GLOBAL }) {
     } else {
       try {
         api.sendMessage('Please bear with me while I ponder your request...', event.threadID, event.messageID);
-        const ris = await axios.get(`https://garfieldapi.cyclic.app/api/gpt4?query=${message.slice(1).join(" ")}`);
+        const ris = await axios.get(`https://markapi-gpt4.cyclic.app/api/gpt4?query=${message.slice(1).join(" ")}`);
         const result = ris.data.Mark;
-        const Mark = `𝗔𝗗𝗢𝗕𝗢 🎃:\n\n${result}`;
+        const Mark = `𝗔𝗜 🚀:\n\n${result}`;
         api.sendMessage(Mark, event.threadID, event.messageID);
       } catch (err) {
         console.error(err);
