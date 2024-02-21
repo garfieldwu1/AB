@@ -52,7 +52,7 @@ module.exports.run = async function ({ api, event, args }) {
     api.setMessageReaction("🍗", event.messageID, (err) => {}, true);
     api.sendMessage(`𝘼𝙙𝙤𝙗𝙤𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜...🔎: ${response}`, threadID, messageID);
 
-    const r = await AdoboAI.get(`https://scp-09.onrender.com/api/gpt?query=${response}`);
+    const r = await AdoboAI.get(`https://garfieldoff.onrender.com/api/gpt?query=${response}`);
     const adobo = r.data.result;
 
     const c = "credits: www.facebook.com/mark.dev69";
