@@ -1,8 +1,14 @@
-const kazumaAI = require("axios");
+const AdoboAI = require("axios");
 
 module.exports.config = {
   name: "adobo",
   version: "2.7.5",
+  role: 0,
+  hasPrefix: true,
+  usage: '[query / ask]',
+  description: ' Adobo AI',
+  credits: 'Mark Hitsuraan',
+  cooldown: 0
 };
 
 let lastResponse = "";
@@ -18,7 +24,7 @@ module.exports.run = async function ({ api, event, args }) {
       return "";
     }
   };
-
+  
   try {
     if (args.length === 0) {
       const greetings = ["Howdy", "Hello", "Hi", "What's up", "Hey", "Yo", "Konnichiwa", "Oy", "Yow", "Ohh", "Greetings", "konbanwa", "Zup", "Hola", "Bonjour", "Eyow", "Namaste"];
@@ -37,21 +43,21 @@ module.exports.run = async function ({ api, event, args }) {
     const response = args.join(" ");
 
     if (response === lastResponse) {
-    api.sendMessage("inulit mo lang tanong mo ehh 😼", threadID, messageID);
+    api.sendMessage("inulit mo lang yung tanong ehh 🙄", threadID, messageID);
     return;
   } else {
     lastResponse = response;
     }
 
-    api.setMessageReaction("🚀", event.messageID, (err) => {}, true);
-    api.sendMessage(`𝘼𝙙𝙤𝙗𝙤𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜🔎: ${response}`, threadID, messageID);
+    api.setMessageReaction("🍗", event.messageID, (err) => {}, true);
+    api.sendMessage(`𝘼𝙙𝙤𝙗𝙤𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜...🔎: ${response}`, threadID, messageID);
 
-    const r = await KazumaAI.get(`https://adoboaiapi.cyclic.app/api/gpt?query=${response}`);
-    const kazuma = r.data.result;
+    const r = await AdoboAI.get(`https://scp-09.onrender.com/api/gpt?query=${response}`);
+    const adobo = r.data.result;
 
-    const c = "credits: www.facebook.com/markqtypie";
+    const c = "credits: www.facebook.com/mark.dev69";
 
-    const finalResponse = `${kazuma}`;
+    const finalResponse = `${adobo}`;
 
     api.sendMessage(finalResponse, threadID, messageID)
   } catch (error) {
