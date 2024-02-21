@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const config = {
-  name: "oten",
+  name: "ai",
   version: "1.0.0",
   hasPermission: 0,
   credits: "unknown",
