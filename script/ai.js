@@ -30,7 +30,7 @@ const handleEvent = async function ({ api, event, client, __GLOBAL }) {
         api.sendMessage(Mark, event.threadID, event.messageID);
       } catch (err) {
         console.error(err);
-        api.sendMessage("We apologize for the inconvenience, but we were unable to send your answer at this time. Please try again later.", event.threadID, event.messageID);
+        api.sendMessage("Opsss! nawala yung cignal, Please try again.", event.threadID, event.messageID);
       }
     }
   }
