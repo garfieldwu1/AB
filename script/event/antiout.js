@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "antiout",
+  name: "autodownloader‎ link",
   version: "1.0.0"
 };
 module.exports.handleEvent = async ({
