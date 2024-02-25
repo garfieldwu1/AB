@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "pending",
   version: "1.0.5",
-  credits: "Marjhun Baylon",
+  credits: "Mark Hitsuraan",
   hasPermssion: 2,
   description: "Manage bot's waiting messages",
   usePrefix: true,
