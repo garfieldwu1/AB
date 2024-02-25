@@ -1,83 +1,33 @@
-const axios = require("axios");
-const fs = require("fs");
-const cookie = 'fwjU8yQqoChhkIKuxNZuzuZ6Il_3Cp2S832gNK2Akgtq3nqrmi2kQaFFcnnjIFMaWB9NmQ.';
+const axios = require('axios');
 
 module.exports.config = {
-	name: "gemini",
-	version: "1.0",
-	credits: "rehat--",
-	cooldown: 5,
+		name: "gemini",
+		version: "1.0.0",
+		credits: "dipto",
 	role: 0,
+		description: "Get a response from gemini AI",
 	hasPrefix: false,
-	description: "Artificial Intelligence Google Gemini",
-	usages: "{pn} <query>",
+		usages: "[prompt]",
+		cooldown: 5,
+	  aliases: ["gem"]
 };
 
-module.exports.run = async function ({ api, event, args, message }) {
-	const uid = event.senderID;
-	const prompt = args.join(" ");
+module.exports.run = async ({ api, event, args }) => {
+		const prompt = args.join(" ");
+	api.setMessageReaction("📝", event.messageID, () => { }, true);
 
-	if (!prompt) {
-		message.reply("Please enter a query.");
-		return;
-	}
-
-	if (prompt.toLowerCase() === "clear") {
-		clearHistory();
-		const clear = await axios.get(`https://project-gemini-daac55836bf7.herokuapp.com/api/gemini?query=clear&uid=${uid}&cookie=${cookie}`);
-		message.reply(clear.data.message);
-		return;
-	}
-
-	let apiUrl = `https://project-gemini-daac55836bf7.herokuapp.com/api/gemini?query=${encodeURIComponent(prompt)}&uid=${uid}&cookie=${cookie}`;
-
-	if (event.type === "message_reply") {
-		const imageUrl = event.messageReply.attachments[0]?.url;
-		if (imageUrl) {
-			apiUrl += `&attachment=${encodeURIComponent(imageUrl)}`;
-		}
-	}
-
-	try {
-		const response = await axios.get(apiUrl);
-		const result = response.data;
-
-		let content = result.message;
-		let imageUrls = result.imageUrls;
-
-		let replyOptions = {
-			body: content,
-		};
-
-		if (Array.isArray(imageUrls) && imageUrls.length > 0) {
-			const imageStreams = [];
-
-			if (!fs.existsSync(`${__dirname}/cache`)) {
-				fs.mkdirSync(`${__dirname}/cache`);
-			}
-
-			for (let i = 0; i < imageUrls.length; i++) {
-				const imageUrl = imageUrls[i];
-				const imagePath = `${__dirname}/cache/image${i + 1}.png`;
-
-				try {
-					const imageResponse = await axios.get(imageUrl, {
-						responseType: "arraybuffer",
-					});
-					fs.writeFileSync(imagePath, imageResponse.data);
-					imageStreams.push(fs.createReadStream(imagePath));
-				} catch (error) {
-					console.error("Error occurred while downloading and saving the image:", error);
-					message.reply('An error occurred.');
-				}
-			}
-
-			replyOptions.attachment = imageStreams;
+		if (!prompt) {
+				return api.sendMessage("Hello there, how can I assist you today?", event.threadID, event.messageID);
 		}
 
-		message.reply(replyOptions);
-	} catch (error) {
-		message.reply('An error occurred.');
-		console.error(error.message);
-	}
+		try {
+				const response = await axios.get(`https://gemini-d1p.onrender.com/dipto?prompt=${prompt}`);
+				const di = response.data.dipto; 
+				api.setMessageReaction("✅", event.messageID, () => { }, true);
+
+				api.sendMessage(`${di}`, event.threadID, event.messageID);
+		} catch (error) {
+				console.error('ERROR', error.response?.data || error.message);
+				api.sendMessage('An error occurred while processing the command.', event.threadID);
+		}
 };
