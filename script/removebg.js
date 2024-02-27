@@ -26,7 +26,7 @@ module.exports.run = async ({ api, event, args }) => {
 
     const img = (await axios.get(processedImageURL, { responseType: "arraybuffer"})).data;
 
-    fs.writeFileSync(pathie, Buffer.from(img, 'utf-8'));
+    fs.writeFileSync(pathie, Buffer.from(img, 'binary'));
 
     api.sendMessage({
       body: "Processed Image",
