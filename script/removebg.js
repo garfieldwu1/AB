@@ -20,7 +20,7 @@ module.exports.run = async ({ api, event, args }) => {
   var mark = event.messageReply.attachments[0].url || args.join(" ");
 
   try {
-    api.sendMessage("Generating...", threadID, messageID);
+    api.sendMessage("Removing background...", threadID, messageID);
     const response = await axios.get(`https://allinoneapis.onrender.com/api/try/removebg?url=${encodeURIComponent(mark)}`);
     const processedImageURL = response.data.image_data;
 
