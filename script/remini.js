@@ -3,47 +3,36 @@ const fs = require('fs-extra');
 
 module.exports.config = {
   name: "remini",
-  version: "2.2",
+  version: "1.0.",
   hasPermssion: 0,
   credits: "Mark Hitsuraan",
-  description: "enhance",
-  commandCategory: "no prefix",
-  usages: "Enhancer",
-  usePrefix: false,
+  description: "enhance your photo ",
+  usePrefix: true,
+  commandCategory: "image",
+  usages: "< reply image >",
   cooldowns: 2,
 };
 
-module.exports.handleEvent = async function ({ api, event }) {
-  if (!(event.body.indexOf("remini") === 0 || event.body.indexOf("Remini") === 0)) return;
-  const args = event.body.split(/\s+/);
-  args.shift();
-
-  const pathie = __dirname + `/cache/zombie.jpg`;
+module.exports.run = async ({ api, event, args }) => {
+  let pathie = __dirname + `/cache/zombie.jpg`;
   const { threadID, messageID } = event;
 
-  const photoUrl = event.messageReply.attachments[0] ? event.messageReply.attachments[0].url : args.join(" ");
+  var mark = event.messageReply.attachments[0].url || args.join(" ");
 
-  if (!photoUrl) {
-    api.sendMessage("Please reply to a image to proceed enhancing.", threadID, messageID);
-    return;
-  }
+  try {
+    api.sendMessage("Generating...", threadID, messageID);
+    const response = await axios.get(`https://allinoneapis.onrender.com/api/try/remini?url=${encodeURIComponent(mark)}`);
+    const processedImageURL = response.data.image_data;
 
-  api.sendMessage("enhancing, please wait a moment...", threadID, async () => {
-    try {
-      const response = await axios.get(`https://allinoneapis.onrender.com/api/try/remini?url=${encodeURIComponent(photoUrl)}`);
-      const processedImageURL = response.data.image_data;
-      const img = (await axios.get(processedImageURL, { responseType: "arraybuffer" })).data;
+    const img = (await axios.get(processedImageURL, { responseType: "arraybuffer"})).data;
 
-      fs.writeFileSync(pathie, Buffer.from(img, 'binary'));
+    fs.writeFileSync(pathie, Buffer.from(img, 'utf-8'));
 
-      api.sendMessage({
-        body: "Enhanced Successfully!",
-        attachment: fs.createReadStream(pathie)
-      }, threadID, () => fs.unlinkSync(pathie), messageID);
-    } catch (error) {
-      api.sendMessage(`error processing image: ${error}`, threadID, messageID);
-    }
-  });
+    api.sendMessage({
+      body: "Processed Image",
+      attachment: fs.createReadStream(pathie)
+    }, threadID, () => fs.unlinkSync(pathie), messageID);
+  } catch (error) {
+    api.sendMessage(`Error processing image: ${error}`, threadID, messageID);
+  };
 };
-
-module.exports.run = async function ({ api, event }) {};
