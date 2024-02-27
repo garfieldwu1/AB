@@ -11,7 +11,7 @@ module.exports.config = {
   cooldown: 0
 };
 
-let lastResponse = "";
+//let lastResponse = "";
 
 module.exports.run = async function ({ api, event, args }) {
   let { threadID, messageID, senderID } = event;
@@ -42,12 +42,12 @@ module.exports.run = async function ({ api, event, args }) {
 
     const response = args.join(" ");
 
-    if (response === lastResponse) {
-    api.sendMessage("inulit mo lang yung tanong ehh 🙄", threadID, messageID);
-    return;
-  } else {
-    lastResponse = response;
-    }
+    //if (response === lastResponse) {
+   // api.sendMessage("inulit mo lang yung tanong ehh 🙄", threadID, messageID);
+  //  return;
+ // } else {
+   // lastResponse = response;
+ //   }
 
     api.setMessageReaction("🍗", event.messageID, (err) => {}, true);
     api.sendMessage(`𝘼𝙙𝙤𝙗𝙤𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜...🔎: ${response}`, threadID, messageID);
