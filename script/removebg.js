@@ -14,13 +14,13 @@ module.exports.config = {
 };
 
 module.exports.run = async ({ api, event, args }) => {
-  let pathie = __dirname + `/cache/removed_bg.jpg``;
+  let pathie = __dirname + `/cache/remove_bg.jpg`;
   const { threadID, messageID } = event;
 
-  var mark = event.messageReply ? event.messageReply.attachments[0].url : args.join(" ");
+  var mark = event.messageReply.attachments[0].url || args.join(" ");
 
   try {
-    api.sendMessage("Removing background...", threadID, messageID);
+    api.sendMessage("Generating...", threadID, messageID);
     const response = await axios.get(`https://allinoneapis.onrender.com/api/try/removebg?url=${encodeURIComponent(mark)}`);
     const processedImageURL = response.data.image_data;
 
