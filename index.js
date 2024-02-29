@@ -208,7 +208,7 @@ app.post('/login', async (req, res) => {
 		}
 });
 const port = process.env.PORT || 3000;
-app.listen(3000, () => {
+app.listen(port,() => {
 		console.log(`
 \x1b[34mAstralAI - AUTOBOT is online\x1b[0m
 
