@@ -13,7 +13,7 @@ module.exports.languages = {
 		"vi": {
 				"invaildNumber": "%1 không phải là một con số hợp lệ",
 				"cancelSuccess": "Đã từ chối thành công %1 nhóm!",
-				"notiBox": "Box của bạn đã được admin phê duyệt để có thể sử dụng bot",
+				"notiBox": "",
 				"approveSuccess": "Đã phê duyệt thành công %1 nhóm!",
 				"cantGetPendingList": "Không thể lấy danh sách các nhóm đang chờ!",
 				"returnListPending": "「PENDING」❮ Tổng số nhóm cần duyệt: %1 nhóm ❯\n\n%2",
@@ -22,7 +22,7 @@ module.exports.languages = {
 		"en": {
 				"invaildNumber": "%1 is not an invalid number",
 				"cancelSuccess": "Refused %1 thread!",
-				"notiBox": "🌐 BoT Connected Successfully✅!\nUse /help for more info :>",
+				"notiBox": "",
 				"approveSuccess": "Approved successfully %1 threads!",
 				"cantGetPendingList": "Can't get the pending list!",
 				"returnListPending": "»「PENDING」«❮ The whole number of threads to approve is: %1 thread ❯\n\n%2",
