@@ -1,7 +1,7 @@
 const AdoboAI = require("axios");
 
 module.exports.config = {
-  name: "adobo",
+  name: "ashley",
   version: "2.7.5",
   role: 0,
   hasPrefix: true,
@@ -49,8 +49,8 @@ module.exports.run = async function ({ api, event, args }) {
    // lastResponse = response;
  //   }
 
-    api.setMessageReaction("🍗", event.messageID, (err) => {}, true);
-    api.sendMessage(`𝘼𝙙𝙤𝙗𝙤𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜...🔎: ${response}`, threadID, messageID);
+    api.setMessageReaction("🍂", event.messageID, (err) => {}, true);
+    api.sendMessage(`𝘼𝙨𝙝𝙡𝙚𝙮𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜...🔎: ${response}`, threadID, messageID);
 
     const r = await AdoboAI.get(`https://garfieldoff.onrender.com/api/gpt?query=${response}`);
     const adobo = r.data.result;
