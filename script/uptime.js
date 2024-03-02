@@ -44,7 +44,7 @@ module.exports.getUptime = (uptime) => {
 		const mins = Math.floor((uptime % 3600) / 60);
 		const seconds = Math.floor(uptime % 60);
 
-		return `${days} day(s), ${hours} hour(s), ${mins} minute(s), and ${seconds} second(s)`;
+		return `Uptime ${days} day(s), ${hours} hour(s), ${mins} minute(s), and ${seconds} second(s)`;
 };
 
 module.exports.run = async ({ api, event }) => {
