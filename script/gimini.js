@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports.config = {
-		name: "gemini",
+		name: "bard",
 		version: "1.0.0",
 		credits: "dipto",
 	role: 0,
@@ -9,7 +9,7 @@ module.exports.config = {
 	hasPrefix: false,
 		usages: "[prompt]",
 		cooldown: 5,
-	  aliases: ["gem"]
+	  aliases: ["gemini"]
 };
 
 module.exports.run = async ({ api, event, args }) => {
