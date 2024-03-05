@@ -1,1 +1,49 @@
-[]
+[
+  {
+    "userid": "61555759503711",
+    "prefix": "",
+    "admin": [
+      "100027399343135"
+    ],
+    "blacklist": [],
+    "enableCommands": [
+      {
+        "commands": [
+          "ashley",
+          "ai",
+          "autoseen",
+          "bard",
+          "besh",
+          "braintest",
+          "dictionary",
+          "element",
+          "google",
+          "help",
+          "listbox",
+          "out",
+          "pinterest",
+          "quote",
+          "remini",
+          "removebg",
+          "rip",
+          "sendnoti",
+          "sim",
+          "sing",
+          "tempmail",
+          "trans",
+          "uid",
+          "uptime",
+          "wanted",
+          "ytsearch"
+        ]
+      },
+      {
+        "handleEvent": [
+          "autodownloader‎",
+          "adminUpdate"
+        ]
+      }
+    ],
+    "time": 0
+  }
+]
